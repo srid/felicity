@@ -63,7 +63,30 @@ fn Home(cx: Scope) -> Element {
     let moods_by_date = Mood::group_by_day(&moods);
 
     // Render each date and its associated moods
-    render! { ViewMoods { moods_by_date: moods_by_date } }
+    render! {
+        MoodForm {}
+        ViewMoods { moods_by_date: moods_by_date }
+    }
+}
+
+#[component]
+fn MoodForm(cx: Scope) -> Element {
+    let state = AppState::use_state(cx);
+
+    let handler = |mood| {
+        move |_event| {
+            cx.spawn(async move {
+                state.add_mood(mood).await;
+            });
+        }
+    };
+
+    render! {
+        div { class: "flex items-center justify-center space-x-4 my-4",
+            button { class: "text-4xl", onclick: handler(true), "😊" }
+            button { class: "text-4xl", onclick: handler(false), "😔" }
+        }
+    }
 }
 
 #[component]

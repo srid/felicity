@@ -57,6 +57,19 @@ impl AppState {
         self.moods.set(moods);
     }
 
+    pub async fn add_mood(&self, feeling_good: bool) {
+        let pool = SqlitePool::connect("sqlite:/Users/srid/.dioxus-desktop-template.db")
+            .await
+            .unwrap();
+        sqlx::query("INSERT INTO mood (datetime, feeling_good) VALUES (?, ?)")
+            .bind(Local::now().naive_local())
+            .bind(feeling_good)
+            .execute(&pool)
+            .await
+            .unwrap();
+        self.initialize().await; // TODO: optimize this
+    }
+
     pub fn use_state(cx: Scope) -> Self {
         *use_context(cx).unwrap()
     }

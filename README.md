@@ -3,7 +3,7 @@
 WIP
 
 - [x] Render moods list
-- [ ] Ability to enter moods in UI
+- [x] Ability to enter moods in UI
 - [ ] Mood 'calendar' view
     - Clicking the day should toggle the list below the calendar month
 

@@ -1,7 +1,7 @@
 #![allow(non_snake_case)]
 mod state;
 
-use chrono::{Datelike, NaiveDate};
+use chrono::Datelike;
 use dioxus::prelude::*;
 use dioxus_desktop::{LogicalSize, WindowBuilder};
 use dioxus_router::prelude::*;
@@ -27,8 +27,6 @@ enum Route {
     #[layout(Wrapper)]
         #[route("/")]
         Home {},
-        #[route("/about")]
-        About {},
 }
 
 fn App(cx: Scope) -> Element {
@@ -44,7 +42,6 @@ fn App(cx: Scope) -> Element {
 fn Wrapper(cx: Scope) -> Element {
     render! {
         div { class: "container text-xl flex flex-col items-center justify-between h-screen",
-            Nav {}
             div { class: "m-auto p-4", Outlet::<Route> {} }
             footer { class: "mx-auto flex flex-row justify-center items-center w-full p-4 text-sm text-gray-400",
                 "Powered by Dioxus "
@@ -95,55 +92,6 @@ fn ViewMood(cx: Scope, mood: Mood) -> Element {
                 p { class: "text-lg",
                     if mood.feeling_good { "😊" } else { "🥵" }
                 }
-            }
-        }
-    }
-}
-
-fn Loader(cx: Scope) -> Element {
-    render! {
-        div { class: "flex justify-center items-center",
-            div { class: "animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-purple-500" }
-        }
-    }
-}
-
-fn About(cx: Scope) -> Element {
-    render! {
-        div { class: "flex flex-col items-center",
-            p {
-                "You are looking at a "
-                span { class: "font-bold", "Dioxus" }
-                " app (see source code "
-                a {
-                    class: "text-purple-600 hover:text-purple-800",
-                    href: "https://github.com/srid/felicity",
-                    "here"
-                }
-                ")"
-            }
-            a { href: "https://dioxuslabs.com/", img { class: "w-32 h-32", src: "dioxus.png" } }
-        }
-    }
-}
-
-fn Nav(cx: Scope) -> Element {
-    let NavLink = |route: Route, text: &str| {
-        render! {
-            Link {
-                to: route,
-                class: "px-3 py-2 hover:text-white rounded-md",
-                active_class: "bg-purple-600 text-white",
-                text
-            }
-        }
-    };
-    render! {
-        nav { class: "flex flex-row justify-between w-full mb-8 px-4 py-2 bg-gray-800",
-            div { class: "flex items-center", h1 { class: "text-lg font-bold text-white", "Felicity" } }
-            div { class: "flex items-center",
-                NavLink(Route::Home {}, "Home"),
-                NavLink(Route::About {}, "About")
             }
         }
     }

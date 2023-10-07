@@ -2,11 +2,11 @@
 
 use std::collections::BTreeMap;
 
-use chrono::{DateTime, Local, NaiveDate, TimeZone, Utc};
+use chrono::{DateTime, Local, NaiveDate, TimeZone};
 use dioxus::prelude::{use_context, Scope};
 use dioxus_signals::Signal;
 
-use sqlx::{FromRow, SqlitePool};
+use sqlx::{FromRow, Pool, Sqlite, SqlitePool};
 
 #[derive(Clone, Copy, Default)]
 pub struct AppState {
@@ -44,11 +44,8 @@ impl Mood {
 
 impl AppState {
     pub async fn initialize(&self) {
-        let pool = SqlitePool::connect("sqlite:/Users/srid/.dioxus-desktop-template.db")
-            .await
-            .unwrap();
         let moods = sqlx::query_as::<_, Mood>("SELECT datetime, feeling_good FROM mood")
-            .fetch_all(&pool)
+            .fetch_all(&db_pool().await)
             .await
             .unwrap();
         for mood in &moods {
@@ -58,12 +55,9 @@ impl AppState {
     }
 
     pub async fn add_mood(&self, feeling_good: bool) {
-        let pool = SqlitePool::connect("sqlite:/Users/srid/.dioxus-desktop-template.db")
-            .await
-            .unwrap();
         sqlx::query("INSERT INTO mood (feeling_good) VALUES (?)")
             .bind(feeling_good)
-            .execute(&pool)
+            .execute(&db_pool().await)
             .await
             .unwrap();
         self.initialize().await; // TODO: optimize this
@@ -72,4 +66,10 @@ impl AppState {
     pub fn use_state(cx: Scope) -> Self {
         *use_context(cx).unwrap()
     }
+}
+
+pub async fn db_pool() -> Pool<Sqlite> {
+    SqlitePool::connect("sqlite:/Users/srid/.felicity.db")
+        .await
+        .unwrap()
 }

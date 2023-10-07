@@ -2,6 +2,15 @@
 
 WIP
 
+- [x] Render moods list
+- [ ] Ability to enter moods in UI
+- [ ] Mood 'calendar' view
+    - Clicking the day should toggle the list below the calendar month
+
+Before public release,
+
+- [ ] Auto-create `~/.felicity.db` if it does not exist
+
 ## Getting Starred
 
 In the `nix develop` shell, run:
@@ -24,5 +33,3 @@ just bundle
 nix run github:srid/felicity
 # Or just `nix run` in the project directory
 ```
-
-#

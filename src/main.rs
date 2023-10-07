@@ -31,7 +31,7 @@ enum Route {
 }
 
 fn App(cx: Scope) -> Element {
-    use_context_provider(cx, AppState::new);
+    use_context_provider(cx, AppState::default);
     let state = AppState::use_state(cx);
     use_future(cx, (), |_| async move {
         state.initialize().await;

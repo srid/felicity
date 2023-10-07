@@ -3,9 +3,9 @@
 use dioxus::prelude::{use_context, Scope};
 use dioxus_signals::Signal;
 
-use sqlx::{sqlite, FromRow, SqlitePool};
+use sqlx::{FromRow, SqlitePool};
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Default)]
 pub struct AppState {
     pub moods: Signal<Vec<Mood>>,
 }
@@ -17,13 +17,6 @@ pub struct Mood {
 }
 
 impl AppState {
-    pub fn new() -> Self {
-        let name = std::env::var("USER").unwrap_or("world".to_string());
-        Self {
-            moods: Signal::new(vec![]),
-        }
-    }
-
     pub async fn initialize(&self) {
         let pool = SqlitePool::connect("sqlite:/Users/srid/.dioxus-desktop-template.db")
             .await

@@ -14,7 +14,7 @@ fn main() {
             .with_custom_head(r#"<link rel="stylesheet" href="tailwind.css">"#.to_string())
             .with_window(
                 WindowBuilder::new()
-                    .with_title("Dioxus Desktop Template")
+                    .with_title("Felicity")
                     .with_inner_size(LogicalSize::new(600.0, 500.0)),
             ),
     );
@@ -26,8 +26,6 @@ enum Route {
     #[layout(Wrapper)]
         #[route("/")]
         Home {},
-        #[route("/info")]
-        SystemInfo {},
         #[route("/about")]
         About {},
 }
@@ -80,31 +78,6 @@ fn Home(cx: Scope) -> Element {
     }
 }
 
-fn SystemInfo(cx: Scope) -> Element {
-    let state = use_app_state(cx);
-    use_future(cx, (), |_| async move {
-        state.update_systemstat().await;
-    });
-    let system = state.system.read();
-    render! {
-        div { class: "flex flex-col items-center p-4",
-            h1 { class: "text-2xl font-bold mb-4", "System Info" }
-            match &*system {
-                None => render! { Loader {} },
-                Some(system) => {
-                    let s = format!("{:?}", system);
-                    render! {
-                        div {
-                            class: "text-sm font-mono bg-gray-200 rounded-lg p-4",
-                            s
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
 fn Loader(cx: Scope) -> Element {
     render! {
         div { class: "flex justify-center items-center",
@@ -145,12 +118,9 @@ fn Nav(cx: Scope) -> Element {
     };
     render! {
         nav { class: "flex flex-row justify-between w-full mb-8 px-4 py-2 bg-gray-800",
-            div { class: "flex items-center",
-                h1 { class: "text-lg font-bold text-white", "Dioxus Desktop Template" }
-            }
+            div { class: "flex items-center", h1 { class: "text-lg font-bold text-white", "Felicity" } }
             div { class: "flex items-center",
                 NavLink(Route::Home {}, "Home"),
-                NavLink(Route::SystemInfo {}, "System"),
                 NavLink(Route::About {}, "About")
             }
         }

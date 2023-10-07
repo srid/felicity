@@ -4,7 +4,7 @@ mod state;
 use dioxus::prelude::*;
 use dioxus_desktop::{LogicalSize, WindowBuilder};
 use dioxus_router::prelude::*;
-use state::AppState;
+use state::{AppState, Mood};
 
 fn main() {
     // launch the dioxus app in a webview
@@ -30,13 +30,12 @@ enum Route {
         About {},
 }
 
-/// Get the [AppState] from context
-fn use_app_state(cx: Scope) -> AppState {
-    *use_context(cx).unwrap()
-}
-
 fn App(cx: Scope) -> Element {
     use_context_provider(cx, AppState::new);
+    let state = AppState::use_state(cx);
+    use_future(cx, (), |_| async move {
+        state.initialize().await;
+    });
 
     cx.render(rsx! { Router::<Route> {} })
 }
@@ -55,24 +54,33 @@ fn Wrapper(cx: Scope) -> Element {
 }
 
 fn Home(cx: Scope) -> Element {
-    let state = use_app_state(cx);
-    let name = state.name;
+    let state = AppState::use_state(cx);
+    let moods = state.moods.read();
     render! {
         div { class: "flex flex-col items-center justify-center",
-            p {
-                "Hello, "
-                span { class: "font-bold", "{name}" }
-                "!"
+            for mood in &*moods {
+                // Render [Mood] along with its time, as a table row
+                // FIXME: remove clone
+                render! { ViewMood { mood: mood.clone() }}
             }
-            div {
-                class: "flex items-center hover:bg-purple-200 text-sm mt-4 italic rounded cursor-pointer",
-                onmouseenter: move |_event| {
-                    state.reverse_name();
-                },
-                onmouseleave: move |_event| {
-                    state.reverse_name();
-                },
-                "m-a-n-g-l-e"
+        }
+    }
+}
+
+#[component]
+fn ViewMood(cx: Scope, mood: Mood) -> Element {
+    let mood_class = if mood.feeling_good {
+        ""
+    } else {
+        "text-red-400"
+    };
+    render! {
+        div { class: "flex items-center justify-between w-full p-2",
+            div { class: "{mood_class} py-1 px-2 rounded-md", p { class: "text-lg", "{mood.datetime}" } }
+            div { class: "",
+                p { class: "text-lg",
+                    if mood.feeling_good { "😊" } else { "🥵" }
+                }
             }
         }
     }

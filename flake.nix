@@ -55,13 +55,13 @@
           };
         };
 
-        packages.default = self'.packages.dioxus-desktop-template;
+        packages.default = self'.packages.felicity;
 
         devShells.default = pkgs.mkShell {
           name = "nix-browser";
           inputsFrom = [
             config.treefmt.build.devShell
-            self'.devShells.dioxus-desktop-template
+            self'.devShells.felicity
           ];
           packages = with pkgs; [
             just

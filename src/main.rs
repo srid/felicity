@@ -122,7 +122,7 @@ fn About(cx: Scope) -> Element {
                 " app (see source code "
                 a {
                     class: "text-purple-600 hover:text-purple-800",
-                    href: "https://github.com/srid/dioxus-desktop-template",
+                    href: "https://github.com/srid/felicity",
                     "here"
                 }
                 ")"

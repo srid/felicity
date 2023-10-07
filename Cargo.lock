@@ -732,19 +732,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "dioxus-desktop-template"
-version = "0.1.0"
-dependencies = [
- "dioxus 0.4.2",
- "dioxus-desktop",
- "dioxus-router",
- "dioxus-signals",
- "dioxus-std",
- "sysinfo",
- "tokio",
-]
-
-[[package]]
 name = "dioxus-hooks"
 version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1054,6 +1041,19 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d329bdeac514ee06249dabc27877490f17f5d371ec693360768b838e19f3ae10"
 dependencies = [
  "simd-adler32",
+]
+
+[[package]]
+name = "felicity"
+version = "0.1.0"
+dependencies = [
+ "dioxus 0.4.2",
+ "dioxus-desktop",
+ "dioxus-router",
+ "dioxus-signals",
+ "dioxus-std",
+ "sysinfo",
+ "tokio",
 ]
 
 [[package]]

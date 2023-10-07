@@ -1,11 +1,11 @@
 [application]
-name = "dioxus-desktop-template"
+name = "felicity"
 default_platform = "desktop"
 out_dir = "dist"
 asset_dir = "assets"
 
 [web.app]
-title = "dioxus-desktop-template | 🖥️"
+title = "felicity | 🖥️"
 
 [web.watcher]
 # when watcher trigger, regenerate the `index.html`
@@ -27,8 +27,8 @@ script = []
 
 # FIXME: Need to `cd assets` before running `dx bundle` due to https://github.com/DioxusLabs/dioxus/issues/1283
 [bundle]
-name = "dioxus-desktop-template"
-identifier = "ca.srid.dioxus-desktop-template"
+name = "felicity"
+identifier = "ca.srid.felicity"
 icon = ["dioxus.png"]
 version = "1.0.0"
 resources = ["**/tailwind.css", "**/*.png"]

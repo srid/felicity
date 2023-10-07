@@ -83,8 +83,23 @@ fn MoodForm(cx: Scope) -> Element {
 
     render! {
         div { class: "flex items-center justify-center space-x-4 my-4",
-            button { class: "text-4xl", onclick: handler(true), "😊" }
-            button { class: "text-4xl", onclick: handler(false), "😔" }
+            EmojiButton { emoji: "😊", handler: handler(true) }
+            EmojiButton { emoji: "🥵", handler: handler(false) }
+        }
+    }
+}
+
+#[component]
+fn EmojiButton<F>(cx: Scope, emoji: &'static str, handler: F) -> Element
+where
+    F: Fn(Event<MouseData>),
+{
+    render! {
+        button {
+            class: "text-4xl hover:scale-110 hover:shadow-lg rounded-lg hover:bg-pink-200 active:bg-black transform transition duration-200 ease-in-out",
+            onclick: handler,
+            style: "animation: click 0.1s ease-in-out;",
+            "{emoji}"
         }
     }
 }

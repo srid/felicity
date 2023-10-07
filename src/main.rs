@@ -1,6 +1,7 @@
 #![allow(non_snake_case)]
 mod state;
 
+use chrono::{Datelike, NaiveDate};
 use dioxus::prelude::*;
 use dioxus_desktop::{LogicalSize, WindowBuilder};
 use dioxus_router::prelude::*;
@@ -53,15 +54,26 @@ fn Wrapper(cx: Scope) -> Element {
     }
 }
 
+#[component]
 fn Home(cx: Scope) -> Element {
     let state = AppState::use_state(cx);
     let moods = state.moods.read();
+
+    // Group moods by date
+    // TODO: This should be a signal?
+    let moods_by_date = Mood::group_by_day(&moods);
+
+    // Render each date and its associated moods
     render! {
-        div { class: "flex flex-col items-center justify-center",
-            for mood in &*moods {
-                // Render [Mood] along with its time, as a table row
-                // FIXME: remove clone
-                render! { ViewMood { mood: mood.clone() }}
+        div { class: "flex flex-col items-center justify-center space-y-2",
+            for (date , moods) in moods_by_date.iter().rev() {
+                div { class: "flex flex-col items-center justify-center",
+                    header { class: "text-2xl font-bold", "{date.month()}/{date.day()}/{date.year()}" }
+                    for mood in moods.iter().rev() {
+                        // FIXME: clone
+                        render! { ViewMood { mood: mood.clone() } }
+                    }
+                }
             }
         }
     }
@@ -75,8 +87,10 @@ fn ViewMood(cx: Scope, mood: Mood) -> Element {
         "text-red-400"
     };
     render! {
-        div { class: "flex items-center justify-between w-full p-2",
-            div { class: "{mood_class} py-1 px-2 rounded-md", p { class: "text-lg", "{mood.datetime}" } }
+        div { class: "flex items-center justify-between w-full px-2",
+            div { class: "{mood_class} py-1 px-2 mx-4 rounded-md",
+                p { class: "font-mono text-sm", "{mood.local_datetime()}" }
+            }
             div { class: "",
                 p { class: "text-lg",
                     if mood.feeling_good { "😊" } else { "🥵" }

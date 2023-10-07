@@ -29,7 +29,7 @@ script = []
 [bundle]
 name = "felicity"
 identifier = "ca.srid.felicity"
-icon = ["logo.png"]
+icon = ["dioxus.png"]
 version = "1.0.0"
 resources = ["**/tailwind.css", "**/*.png"]
 copyright = "Copyright (c) Sridhar Ratnakumar. All rights reserved."

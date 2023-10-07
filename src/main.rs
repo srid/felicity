@@ -47,7 +47,7 @@ fn Wrapper(cx: Scope) -> Element {
             div { class: "m-auto p-4", Outlet::<Route> {} }
             footer { class: "mx-auto flex flex-row justify-center items-center w-full p-4 text-sm text-gray-400",
                 "Powered by Dioxus "
-                img { class: "w-6 h-6 self-center", src: "logo.png" }
+                img { class: "w-4 h-4 self-center", src: "dioxus.png" }
             }
         }
     }

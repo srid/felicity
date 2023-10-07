@@ -615,14 +615,6 @@ video {
   height: 100vh;
 }
 
-.h-64 {
-  height: 16rem;
-}
-
-.h-6 {
-  height: 1.5rem;
-}
-
 .w-1\/2 {
   width: 50%;
 }
@@ -637,14 +629,6 @@ video {
 
 .w-full {
   width: 100%;
-}
-
-.w-64 {
-  width: 16rem;
-}
-
-.w-6 {
-  width: 1.5rem;
 }
 
 .transform {

@@ -61,8 +61,7 @@ impl AppState {
         let pool = SqlitePool::connect("sqlite:/Users/srid/.dioxus-desktop-template.db")
             .await
             .unwrap();
-        sqlx::query("INSERT INTO mood (datetime, feeling_good) VALUES (?, ?)")
-            .bind(Utc::now())
+        sqlx::query("INSERT INTO mood (feeling_good) VALUES (?)")
             .bind(feeling_good)
             .execute(&pool)
             .await

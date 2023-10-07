@@ -1,7 +1,9 @@
 #![allow(non_snake_case)]
 mod state;
 
-use chrono::Datelike;
+use std::collections::BTreeMap;
+
+use chrono::{Datelike, NaiveDate};
 use dioxus::prelude::*;
 use dioxus_desktop::{LogicalSize, WindowBuilder};
 use dioxus_router::prelude::*;
@@ -61,6 +63,11 @@ fn Home(cx: Scope) -> Element {
     let moods_by_date = Mood::group_by_day(&moods);
 
     // Render each date and its associated moods
+    render! { ViewMoods { moods_by_date: moods_by_date } }
+}
+
+#[component]
+fn ViewMoods(cx: Scope, moods_by_date: BTreeMap<NaiveDate, Vec<Mood>>) -> Element {
     render! {
         div { class: "flex flex-col items-center justify-center space-y-2",
             for (date , moods) in moods_by_date.iter().rev() {

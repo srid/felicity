@@ -2,7 +2,7 @@
 
 use std::collections::BTreeMap;
 
-use chrono::{DateTime, Local, NaiveDate, TimeZone};
+use chrono::{DateTime, Local, NaiveDate, TimeZone, Utc};
 use dioxus::prelude::{use_context, Scope};
 use dioxus_signals::Signal;
 
@@ -62,7 +62,7 @@ impl AppState {
             .await
             .unwrap();
         sqlx::query("INSERT INTO mood (datetime, feeling_good) VALUES (?, ?)")
-            .bind(Local::now().naive_local())
+            .bind(Utc::now())
             .bind(feeling_good)
             .execute(&pool)
             .await

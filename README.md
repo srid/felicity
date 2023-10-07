@@ -4,6 +4,7 @@ WIP
 
 - [x] Render moods list
 - [x] Ability to enter moods in UI
+- [ ] Ability to delete entries (useful during app testing)
 - [ ] Mood 'calendar' view
     - Clicking the day should toggle the list below the calendar month
 

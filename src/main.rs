@@ -10,6 +10,9 @@ use dioxus_router::prelude::*;
 use state::{AppState, Mood};
 
 fn main() {
+    // Setup logging using tracing and tracing_subscriber
+    tracing_subscriber::fmt::init();
+    tracing::info!("Starting Felicity");
     // launch the dioxus app in a webview
     dioxus_desktop::launch_cfg(
         App,

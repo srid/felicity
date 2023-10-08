@@ -59,11 +59,12 @@ impl AppState {
             .fetch_all(db_pool)
             .await
             .unwrap();
-        println!("Loaded {} mood entries", moods.len());
+        tracing::info!("Loaded {} mood entries", moods.len());
         self.moods.set(moods);
     }
 
     pub async fn add_mood(&self, feeling_good: bool) {
+        tracing::info!("Adding mood: feeling_good={}", feeling_good);
         sqlx::query("INSERT INTO mood (feeling_good) VALUES (?)")
             .bind(feeling_good)
             .execute(&db_pool().await)
@@ -78,7 +79,10 @@ impl AppState {
 }
 
 pub async fn db_pool() -> Pool<Sqlite> {
-    SqlitePool::connect_with(db_opts()).await.unwrap()
+    let opts = db_opts();
+    let pool = SqlitePool::connect_with(opts).await.unwrap();
+    tracing::info!("Connected to database");
+    pool
 }
 
 pub fn db_opts() -> SqliteConnectOptions {

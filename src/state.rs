@@ -5,8 +5,8 @@ use std::collections::BTreeMap;
 use chrono::{DateTime, Local, NaiveDate, TimeZone};
 use dioxus::prelude::{use_context, Scope};
 use dioxus_signals::Signal;
-
-use sqlx::{FromRow, Pool, Sqlite, SqlitePool};
+use dirs::home_dir;
+use sqlx::{sqlite::SqliteConnectOptions, FromRow, Pool, Sqlite, SqlitePool};
 
 #[derive(Clone, Copy, Default)]
 pub struct AppState {
@@ -44,13 +44,22 @@ impl Mood {
 
 impl AppState {
     pub async fn initialize(&self) {
+        let db_pool = &db_pool().await;
+        // Create mood table if it does not exist
+        sqlx::query(
+            "CREATE TABLE IF NOT EXISTS mood (
+                datetime DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+                feeling_good INTEGER NOT NULL CHECK (feeling_good IN (0, 1))
+            );",
+        )
+        .execute(db_pool)
+        .await
+        .unwrap();
         let moods = sqlx::query_as::<_, Mood>("SELECT datetime, feeling_good FROM mood")
-            .fetch_all(&db_pool().await)
+            .fetch_all(db_pool)
             .await
             .unwrap();
-        for mood in &moods {
-            println!("{:?}", mood);
-        }
+        println!("Loaded {} mood entries", moods.len());
         self.moods.set(moods);
     }
 
@@ -69,7 +78,13 @@ impl AppState {
 }
 
 pub async fn db_pool() -> Pool<Sqlite> {
-    SqlitePool::connect("sqlite:/Users/srid/.felicity.db")
-        .await
-        .unwrap()
+    SqlitePool::connect_with(db_opts()).await.unwrap()
+}
+
+pub fn db_opts() -> SqliteConnectOptions {
+    let home_dir = home_dir().expect("Could not find home directory");
+    SqliteConnectOptions::default()
+        .create_if_missing(true)
+        .foreign_keys(true)
+        .filename(home_dir.join(".felicity.db"))
 }

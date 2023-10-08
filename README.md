@@ -11,7 +11,7 @@ WIP
 
 Before public release,
 
-- [ ] Auto-create `~/.felicity.db` if it does not exist
+- [x] Auto-create `~/.felicity.db` if it does not exist
 
 ## Getting Starred
 

@@ -113,10 +113,9 @@ fn ViewMoods(cx: Scope, moods_by_date: BTreeMap<NaiveDate, Vec<Mood>>) -> Elemen
         div { class: "flex flex-col items-center justify-center space-y-2",
             for (date , moods) in moods_by_date.iter().rev() {
                 div { class: "flex flex-col items-center justify-center",
-                    header { class: "text-2xl font-bold", "{date.month()}/{date.day()}/{date.year()}" }
+                    header { class: "text-2xl font-bold", "{date}" }
                     for mood in moods.iter().rev() {
-                        // FIXME: clone
-                        render! { ViewMood { mood: mood.clone() } }
+                        ViewMood { mood: mood }
                     }
                 }
             }
@@ -125,7 +124,7 @@ fn ViewMoods(cx: Scope, moods_by_date: BTreeMap<NaiveDate, Vec<Mood>>) -> Elemen
 }
 
 #[component]
-fn ViewMood(cx: Scope, mood: Mood) -> Element {
+fn ViewMood<'a>(cx: Scope, mood: &'a Mood) -> Element {
     let mood_class = if mood.feeling_good {
         ""
     } else {

@@ -19,3 +19,5 @@ bundle $CI="true":
     # HACK (change PWD): Until https://github.com/DioxusLabs/dioxus/issues/1283
     cd assets && dx bundle 
     nix run nixpkgs#eza -- -T ./dist/bundle/macos/felicity.app
+    rm -rf /Applications/felicity.app/
+    mv dist/bundle/macos/felicity.app /Applications/

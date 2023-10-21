@@ -17,6 +17,9 @@
     treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
     process-compose-flake.url = "github:Platonic-Systems/process-compose-flake";
     cargo-doc-live.url = "github:srid/cargo-doc-live";
+
+    dioxus-desktop-template.url = "github:srid/dioxus-desktop-template";
+    dioxus-desktop-template.flake = false;
   };
 
   outputs = inputs:
@@ -27,7 +30,7 @@
         inputs.treefmt-nix.flakeModule
         inputs.process-compose-flake.flakeModule
         inputs.cargo-doc-live.flakeModule
-        ./nix/flake-module.nix
+        (inputs.dioxus-desktop-template + /nix/flake-module.nix)
       ];
 
       flake = {

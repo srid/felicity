@@ -20,9 +20,7 @@ Before public release,
 In the `nix develop` shell, run:
 
 ```
-# Run these in two separate terminals
-just tw     # Tailwind watcher
-just watch  # Dioxus watcher
+just watch
 ```
 
 ### Creating macOS app bundle

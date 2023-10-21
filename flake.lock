@@ -38,6 +38,22 @@
         "type": "github"
       }
     },
+    "dioxus-desktop-template": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1697897501,
+        "narHash": "sha256-sZThDv+2KD5/iu5LL51RTg16OZqFYkgTdoq/sY1GFpo=",
+        "owner": "srid",
+        "repo": "dioxus-desktop-template",
+        "rev": "bdac79bc7eb6a918eb6280256e29060079a328a4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "srid",
+        "repo": "dioxus-desktop-template",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -177,6 +193,7 @@
       "inputs": {
         "cargo-doc-live": "cargo-doc-live",
         "crane": "crane",
+        "dioxus-desktop-template": "dioxus-desktop-template",
         "flake-parts": "flake-parts",
         "nixpkgs": "nixpkgs",
         "process-compose-flake": "process-compose-flake",

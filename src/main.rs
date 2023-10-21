@@ -3,7 +3,7 @@ mod state;
 
 use std::collections::BTreeMap;
 
-use chrono::{Datelike, NaiveDate};
+use chrono::NaiveDate;
 use dioxus::prelude::*;
 use dioxus_desktop::{LogicalSize, WindowBuilder};
 use dioxus_router::prelude::*;

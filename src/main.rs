@@ -1,4 +1,5 @@
 #![allow(non_snake_case)]
+mod mood;
 mod state;
 
 use std::collections::BTreeMap;
@@ -7,7 +8,8 @@ use chrono::NaiveDate;
 use dioxus::prelude::*;
 use dioxus_desktop::{LogicalSize, WindowBuilder};
 use dioxus_router::prelude::*;
-use state::{AppState, Mood};
+
+use crate::{mood::Mood, state::AppState};
 
 fn main() {
     // Setup logging using tracing and tracing_subscriber

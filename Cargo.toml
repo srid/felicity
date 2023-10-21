@@ -8,10 +8,10 @@ build = "build.rs"
 
 [dependencies]
 chrono = "0.4.31"
-dioxus = { git = "https://github.com/DioxusLabs/dioxus.git", rev = "459f24d5e9ef0e03a3bbd037342c60bbde409dbf" }
-dioxus-desktop = { git = "https://github.com/DioxusLabs/dioxus.git", rev = "459f24d5e9ef0e03a3bbd037342c60bbde409dbf" }
-dioxus-router = { git = "https://github.com/DioxusLabs/dioxus.git", rev = "459f24d5e9ef0e03a3bbd037342c60bbde409dbf" }
-dioxus-signals = { git = "https://github.com/DioxusLabs/dioxus.git", rev = "459f24d5e9ef0e03a3bbd037342c60bbde409dbf" }
+dioxus = { git = "https://github.com/DioxusLabs/dioxus.git", rev = "e41278af4539f3a46ac8bd9cd9940ef0b56cfeec" }
+dioxus-desktop = { git = "https://github.com/DioxusLabs/dioxus.git", rev = "e41278af4539f3a46ac8bd9cd9940ef0b56cfeec" }
+dioxus-router = { git = "https://github.com/DioxusLabs/dioxus.git", rev = "e41278af4539f3a46ac8bd9cd9940ef0b56cfeec" }
+dioxus-signals = { git = "https://github.com/DioxusLabs/dioxus.git", rev = "e41278af4539f3a46ac8bd9cd9940ef0b56cfeec" }
 dioxus-std = { version = "0.4.0", features = ["clipboard", "utils"] }
 dirs = "5.0.1"
 sqlx = { version = "0.7.2", features = ["sqlite", "runtime-tokio", "chrono"] }

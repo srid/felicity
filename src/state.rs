@@ -29,9 +29,8 @@ impl Mood {
         Local.from_utc_datetime(&self.datetime)
     }
 
+    // Group moods by date
     pub fn group_by_day(moods: &Vec<Mood>) -> BTreeMap<NaiveDate, Vec<Mood>> {
-        // Group moods by date
-
         let mut moods_by_date: BTreeMap<NaiveDate, Vec<Mood>> = BTreeMap::new();
         for mood in moods {
             moods_by_date

@@ -46,6 +46,9 @@
           overlays = [
             inputs.rust-overlay.overlays.default
           ];
+          crossSystem = {
+            config = "x86_64-w64-mingw32";
+          };
         };
 
         # Add your auto-formatters here.

@@ -47,6 +47,7 @@ fn App(cx: Scope) -> Element {
 fn Wrapper(cx: Scope) -> Element {
     render! {
         div { class: "container text-xl flex flex-col items-center justify-between h-screen",
+            h1 { class: "text-4xl bg-blue-100 border-blue-700 border-y-2 py-1 mt-2", "Felicity" }
             div { class: "m-auto p-4", Outlet::<Route> {} }
             footer { class: "mx-auto flex flex-row justify-center items-center w-full p-4 text-sm text-gray-400",
                 "Powered by Dioxus "
@@ -114,9 +115,7 @@ fn ViewMoods(cx: Scope, moods_by_date: BTreeMap<NaiveDate, Vec<Mood>>) -> Elemen
             for (date , moods) in moods_by_date.iter().rev() {
                 div { class: "flex flex-col items-center justify-center",
                     header { class: "text-2xl font-bold", "{date}" }
-                    for mood in moods.iter().rev() {
-                        ViewMood { mood: mood }
-                    }
+                    MoodSummaryOnDay { moods: moods }
                 }
             }
         }
@@ -124,19 +123,11 @@ fn ViewMoods(cx: Scope, moods_by_date: BTreeMap<NaiveDate, Vec<Mood>>) -> Elemen
 }
 
 #[component]
-fn ViewMood<'a>(cx: Scope, mood: &'a Mood) -> Element {
-    let mood_class = if mood.feeling_good {
-        ""
-    } else {
-        "text-red-400"
-    };
+fn MoodSummaryOnDay<'a>(cx: Scope, moods: &'a Vec<Mood>) -> Element {
     render! {
-        div { class: "flex items-center justify-between w-full px-2",
-            div { class: "{mood_class} py-1 px-2 mx-4 rounded-md",
-                p { class: "font-mono text-sm", "{mood.local_datetime()}" }
-            }
-            div { class: "",
-                p { class: "text-lg",
+        div {
+            for mood in moods.iter().rev() {
+                span { class: "text-sm", title: "{mood.local_datetime()}",
                     if mood.feeling_good { "😊" } else { "🥵" }
                 }
             }

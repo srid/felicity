@@ -47,7 +47,6 @@ fn App(cx: Scope) -> Element {
 fn Wrapper(cx: Scope) -> Element {
     render! {
         div { class: "container text-xl flex flex-col items-center justify-between h-screen",
-            h1 { class: "text-4xl bg-blue-100 border-blue-700 border-y-2 py-1 mt-2", "Felicity" }
             div { class: "m-auto p-4", Outlet::<Route> {} }
             footer { class: "mx-auto flex flex-row justify-center items-center w-full p-4 text-sm text-gray-400",
                 "Powered by Dioxus "
@@ -86,7 +85,7 @@ fn MoodForm(cx: Scope) -> Element {
     };
 
     render! {
-        div { class: "flex items-center justify-center space-x-4 my-4",
+        div { class: "flex items-center justify-center space-x-4 my-4 bg-blue-100 py-1 border-y-2 border-blue-700",
             EmojiButton { emoji: "😊", handler: handler(true) }
             EmojiButton { emoji: "🥵", handler: handler(false) }
         }
@@ -111,10 +110,10 @@ where
 #[component]
 fn ViewMoods(cx: Scope, moods_by_date: BTreeMap<NaiveDate, Vec<Mood>>) -> Element {
     render! {
-        div { class: "flex flex-col items-center justify-center space-y-2",
+        div { class: "flex flex-col space-y-2",
             for (date , moods) in moods_by_date.iter().rev() {
-                div { class: "flex flex-col items-center justify-center",
-                    header { class: "text-2xl font-bold", "{date}" }
+                div { class: "flex flex-row items-center space-x-2",
+                    header { class: "font-mono text-sm", "{date}" }
                     MoodSummaryOnDay { moods: moods }
                 }
             }

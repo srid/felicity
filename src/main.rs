@@ -21,7 +21,7 @@ fn main() {
             .with_window(
                 WindowBuilder::new()
                     .with_title("Felicity")
-                    .with_inner_size(LogicalSize::new(600.0, 500.0)),
+                    .with_inner_size(LogicalSize::new(400.0, 600.0)),
             ),
     );
 }
@@ -85,7 +85,9 @@ fn MoodForm(cx: Scope) -> Element {
     };
 
     render! {
-        div { class: "flex items-center justify-center space-x-4 my-4 bg-blue-100 py-1 border-y-2 border-blue-700",
+        div {
+            class: "flex items-center justify-center space-x-4 my-4 bg-blue-100 py-1 border-y-2 border-blue-700",
+            title: "How am I experiencing this moment of being alive?",
             EmojiButton { emoji: "😊", handler: handler(true) }
             EmojiButton { emoji: "🥵", handler: handler(false) }
         }
@@ -113,7 +115,7 @@ fn ViewMoods(cx: Scope, moods_by_date: BTreeMap<NaiveDate, Vec<Mood>>) -> Elemen
         div { class: "flex flex-col space-y-2",
             for (date , moods) in moods_by_date.iter().rev() {
                 div { class: "flex flex-row items-center space-x-2",
-                    header { class: "font-mono text-sm", "{date}" }
+                    header { class: "font-mono text-xs", "{date}" }
                     MoodSummaryOnDay { moods: moods }
                 }
             }

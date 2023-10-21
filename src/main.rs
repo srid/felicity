@@ -68,6 +68,7 @@ fn Home(cx: Scope) -> Element {
     // Render each date and its associated moods
     render! {
         MoodForm {}
+        MoodGoal {}
         ViewMoods { moods_by_date: moods_by_date }
     }
 }
@@ -86,10 +87,21 @@ fn MoodForm(cx: Scope) -> Element {
 
     render! {
         div {
-            class: "flex items-center justify-center space-x-4 my-4 bg-blue-100 py-1 border-y-2 border-blue-700",
+            class: "flex items-center justify-center space-x-4 mb-4 bg-blue-100 py-1 border-y-2 border-blue-700",
             title: "How am I experiencing this moment of being alive?",
             EmojiButton { emoji: "😊", handler: handler(true) }
             EmojiButton { emoji: "🥵", handler: handler(false) }
+        }
+    }
+}
+
+#[component]
+fn MoodGoal(cx: Scope) -> Element {
+    render! {
+        div {
+            class: "flex items-center justify-center italic text-gray-400 mb-2",
+            title: "Current Goal",
+            "🥅 achieve days of 100% feeling good 🥅"
         }
     }
 }

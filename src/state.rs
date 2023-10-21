@@ -32,10 +32,12 @@ impl AppState {
         .execute(db_pool)
         .await
         .unwrap();
-        let moods = sqlx::query_as::<_, Mood>("SELECT datetime, feeling_good FROM mood")
-            .fetch_all(db_pool)
-            .await
-            .unwrap();
+        let moods = sqlx::query_as::<_, Mood>(
+            "SELECT datetime, feeling_good FROM mood ORDER BY datetime DESC;",
+        )
+        .fetch_all(db_pool)
+        .await
+        .unwrap();
         tracing::info!("Loaded {} mood entries", moods.len());
         self.moods.set(moods);
     }

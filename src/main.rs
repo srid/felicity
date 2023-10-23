@@ -51,7 +51,11 @@ fn Wrapper(cx: Scope) -> Element {
         div { class: "container text-xl flex flex-col items-center justify-between h-screen",
             div { class: "m-auto p-4", Outlet::<Route> {} }
             footer { class: "mx-auto flex flex-row justify-center items-center w-full p-4 text-sm text-gray-400",
-                "Powered by Dioxus "
+                p {
+                    a { href: "https://github.com/srid/felicity", "Open Source" }
+                    " and "
+                    "Powered by Dioxus "
+                }
                 img { class: "w-4 h-4 self-center", src: "dioxus.png" }
             }
         }
@@ -101,7 +105,7 @@ fn MoodForm(cx: Scope) -> Element {
 fn MoodGoal(cx: Scope) -> Element {
     render! {
         div {
-            class: "flex items-center justify-center italic text-gray-400 mb-2",
+            class: "flex items-center justify-center italic text-sm text-gray-400 mb-2",
             title: "Current Goal",
             "🥅 achieve days of 100% feeling good 🥅"
         }

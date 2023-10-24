@@ -20,6 +20,8 @@ WIP
         - Collapse the view to show streaks as single entry (only expand if registering feeling-bad again)
     1. Achieve a week of 100% feeling good
         - Give 'levels' to such streaks.
+- "Why" of feeling bad
+    - KISS: Tags (which could be distinct emojis) can be attached to each mood entry. The UI can present a popup dropdown when clicking on a recorded registry. Selecting an emoji can highlight all mood entries with the same tag, along with the tag information.
 
 Before public release,
 

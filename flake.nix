@@ -58,6 +58,23 @@
           };
         };
 
+        dioxus-desktop = {
+          rustBuildInputs = (with pkgs; [
+          ] ++ lib.optionals pkgs.stdenv.isLinux
+            [
+              alsa-lib
+              webkitgtk_4_1
+            ] ++ lib.optionals pkgs.stdenv.isDarwin (
+            with darwin.apple_sdk.frameworks; [
+              IOKit
+              Carbon
+              WebKit
+              Security
+              Cocoa
+            ]
+          ));
+        };
+
         packages.default = self'.packages.felicity;
 
         devShells.default = pkgs.mkShell {

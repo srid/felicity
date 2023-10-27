@@ -11,7 +11,7 @@ WIP
 - Recording frequency
     - Must register at least every hour, from ~9am to ~9pm
         - Count the hours which received moods
-    - [ ] Remindes & Nudgers
+    - [x] Remindes & Nudgers
         - Figure out UX to nudge the user to enter mood on a consistent basis such that the calendar view statistics are meaningful.
 - Mood progression
     1. Record every day at regular frequency (see above)

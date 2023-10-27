@@ -1,12 +1,16 @@
 #![allow(non_snake_case)]
 mod mood;
+mod nudge;
 mod state;
 
 use std::collections::BTreeMap;
 
 use chrono::NaiveDate;
 use dioxus::prelude::*;
-use dioxus_desktop::{LogicalSize, WindowBuilder};
+use dioxus_desktop::{
+    tao::window::{UserAttentionType, Window},
+    use_window, LogicalSize, WindowBuilder,
+};
 use dioxus_router::prelude::*;
 
 use crate::{mood::Mood, state::AppState};
@@ -42,6 +46,7 @@ fn App(cx: Scope) -> Element {
     use_future(cx, (), |_| async move {
         state.initialize().await;
     });
+    nudge::setup_nudge(cx);
 
     cx.render(rsx! { Router::<Route> {} })
 }

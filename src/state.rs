@@ -57,6 +57,17 @@ impl AppState {
         self.load_moods().await; // TODO: optimize this
     }
 
+    /// Return the [Duration] since the last mood entry was entered.
+    pub fn time_since_last_mood(&self) -> Option<std::time::Duration> {
+        self.moods.read().first().map(|mood| {
+            chrono::Utc::now()
+                .naive_utc()
+                .signed_duration_since(mood.datetime)
+                .to_std()
+                .unwrap()
+        })
+    }
+
     pub fn use_state(cx: Scope) -> Self {
         *use_context(cx).unwrap()
     }

@@ -7,10 +7,7 @@ use std::collections::BTreeMap;
 
 use chrono::NaiveDate;
 use dioxus::prelude::*;
-use dioxus_desktop::{
-    tao::window::{UserAttentionType, Window},
-    use_window, LogicalSize, WindowBuilder,
-};
+use dioxus_desktop::{LogicalSize, WindowBuilder};
 use dioxus_router::prelude::*;
 
 use crate::{mood::Mood, state::AppState};

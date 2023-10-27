@@ -3,6 +3,7 @@
 use dioxus::prelude::{use_context, Scope};
 use dioxus_signals::Signal;
 use dirs::home_dir;
+use rodio::{Decoder, OutputStream, Sink, Source};
 use sqlx::{sqlite::SqliteConnectOptions, Pool, Sqlite, SqlitePool};
 
 use crate::mood::Mood;
@@ -17,6 +18,7 @@ impl AppState {
     pub async fn initialize(&self) {
         self.db_pool.set(Some(db_pool().await));
         self.load_moods().await;
+        emit_sound().await;
     }
 
     pub async fn load_moods(&self) {
@@ -55,6 +57,7 @@ impl AppState {
             .await
             .unwrap();
         self.load_moods().await; // TODO: optimize this
+        emit_sound().await;
     }
 
     /// Return the [Duration] since the last mood entry was entered.
@@ -86,4 +89,17 @@ pub fn db_opts() -> SqliteConnectOptions {
         .create_if_missing(true)
         .foreign_keys(true)
         .filename(home_dir.join(".felicity.db"))
+}
+
+async fn emit_sound() {
+    tokio::task::spawn_blocking(|| {
+        let (_stream, stream_handle) = OutputStream::try_default().unwrap();
+        let sink = Sink::try_new(&stream_handle).unwrap();
+        let my_slice = std::io::Cursor::new(include_bytes!("../assets/click.mp3").as_ref());
+        let source = Decoder::new(my_slice).unwrap();
+        sink.append(source);
+        sink.sleep_until_end();
+    })
+    .await
+    .unwrap();
 }

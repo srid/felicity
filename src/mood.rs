@@ -26,6 +26,26 @@ impl Mood {
                 .or_default()
                 .push(mood.clone());
         }
+        // Reverse each value in the BTreeMap
+        for (_, moods) in moods_by_date.iter_mut() {
+            moods.reverse();
+        }
         moods_by_date
+    }
+
+    /// Tag each mood with a flag indicating if the next mood, if any, is the same feeling as this one.
+    pub fn tag_consecutive_moods(moods: &[Mood]) -> Vec<(&Mood, bool)> {
+        let mut tagged: Vec<(&Mood, bool)> = vec![];
+        let mut iter = moods.iter().peekable();
+        while let Some(mood) = iter.next() {
+            let next_mood = iter.peek();
+            tagged.push((
+                mood,
+                next_mood
+                    .map(|next_mood| next_mood.feeling_good == mood.feeling_good)
+                    .unwrap_or(false),
+            ));
+        }
+        tagged
     }
 }

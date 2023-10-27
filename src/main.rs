@@ -150,9 +150,20 @@ fn ViewMoods(cx: Scope, moods_by_date: BTreeMap<NaiveDate, Vec<Mood>>) -> Elemen
 fn MoodSummaryOnDay<'a>(cx: Scope, moods: &'a Vec<Mood>) -> Element {
     render! {
         div {
-            for mood in moods.iter().rev() {
-                span { class: "text-sm", title: "{mood.local_datetime()}",
-                    if mood.feeling_good { "😊" } else { "🥵" }
+            for (mood , next_is_same) in Mood::tag_consecutive_moods(&moods) {
+                {
+                    let margin = if next_is_same { "-mr-3 opacity-40" } else { "mr-0" };
+                    render! {
+                        span {
+                            class: "text-sm inline-block {margin}",
+                            title: "{mood.local_datetime()}",
+                            if mood.feeling_good {
+                                    "😊"
+                            } else {
+                                    "🥵"
+                            }
+                        }
+                    }
                 }
             }
         }

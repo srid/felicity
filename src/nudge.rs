@@ -17,6 +17,7 @@ pub fn setup_nudge(cx: Scope) {
         loop {
             if let Some(elapsed) = state.time_since_last_mood() {
                 if elapsed > MOOD_FREQ {
+                    // TODO: Display this in the UI as well (use signals!)
                     tracing::info!("Time since last mood entry: {:?}", elapsed);
                     nudge(&window).await;
                 }

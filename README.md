@@ -1,5 +1,9 @@
 # felicity
 
+Felicity is a extremely simple mood tracker app with the goal of ultimately *becoming useless* to the user. It is a work-in-progress and is **not ready for general use** yet.
+
+The basic idea is to track, as often as possible, whether one is [feeling good](https://srid.ca/feeling-good) or not (nothing more complicated than that) over time, and thereon effectuate [a beneficial modification to one's habitual mood](https://srid.ca/affective-awareness) which modification when perfected (wherein one is feeling good 99% of the time alive) leads to the app becoming useless.
+
 WIP
 
 - [x] Render moods list

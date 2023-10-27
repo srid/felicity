@@ -14,7 +14,7 @@ dioxus-router = { git = "https://github.com/DioxusLabs/dioxus.git", rev = "e4127
 dioxus-signals = { git = "https://github.com/DioxusLabs/dioxus.git", rev = "e41278af4539f3a46ac8bd9cd9940ef0b56cfeec" }
 dioxus-std = { version = "0.4.0", features = ["clipboard", "utils"] }
 dirs = "5.0.1"
-rodio = "0.17.3"
+rodio = { version = "0.17.3", features = ["mp3"] }
 sqlx = { version = "0.7.2", features = ["sqlite", "runtime-tokio", "chrono"] }
 tokio = "1.32.0"
 tracing = "0.1.37"

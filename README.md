@@ -47,6 +47,8 @@ just bundle
 
 ### Running via Nix
 
+(Broken on macOS: https://github.com/srid/felicity/issues/2)
+
 ```
 nix run github:srid/felicity
 # Or just `nix run` in the project directory

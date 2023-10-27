@@ -3,7 +3,7 @@
 use dioxus::prelude::{use_context, Scope};
 use dioxus_signals::Signal;
 use dirs::home_dir;
-use rodio::{Decoder, OutputStream, Sink, Source};
+use rodio::{Decoder, OutputStream, Sink};
 use sqlx::{sqlite::SqliteConnectOptions, Pool, Sqlite, SqlitePool};
 
 use crate::mood::Mood;

@@ -28,7 +28,7 @@ impl AppState {
         sqlx::query(
             "CREATE TABLE IF NOT EXISTS mood (
                 datetime DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
-                feeling_good INTEGER NOT NULL CHECK (feeling_good IN (0, 1))
+                feeling_good BOOLEAN NOT NULL CHECK (feeling_good IN (TRUE, FALSE))
             );",
         )
         .execute(db_pool)

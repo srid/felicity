@@ -59,6 +59,20 @@
         };
 
         dioxus-desktop = {
+          src = lib.cleanSourceWith {
+            src = ./.; # The original, unfiltered source
+            filter = path: type:
+              (lib.hasSuffix "\.html" path) ||
+              (lib.hasSuffix "tailwind.config.js" path) ||
+              # Example of a folder for images, icons, etc
+              (lib.hasInfix "/assets/" path) ||
+              (lib.hasInfix "/css/" path) ||
+              (lib.hasInfix "/.sqlx/" path) ||
+              # Default filter from crane (allow .rs files)
+              (config.dioxus-desktop.craneLib.filterCargoSources path type)
+            ;
+          };
+
           rustBuildInputs = (with pkgs; [
           ] ++ lib.optionals pkgs.stdenv.isLinux
             [

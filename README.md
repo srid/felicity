@@ -51,3 +51,13 @@ just bundle
 nix run github:srid/felicity
 # Or just `nix run` in the project directory
 ```
+
+## Bootstrapping
+
+In order to utilize [sqlx's compile-time verification](https://github.com/launchbadge/sqlx#compile-time-verification) offline in Nix, the following was run on the seed db to initialize the sqlx query metadata:
+
+```
+cargo sqlx prepare --database-url sqlite://$HOME/.felicity.db
+```
+
+This creates a `.sqlx` directory that is then checked into git.

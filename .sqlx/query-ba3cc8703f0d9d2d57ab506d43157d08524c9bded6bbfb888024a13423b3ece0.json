@@ -1,0 +1,26 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT datetime, feeling_good FROM mood ORDER BY datetime DESC;",
+  "describe": {
+    "columns": [
+      {
+        "name": "datetime",
+        "ordinal": 0,
+        "type_info": "Datetime"
+      },
+      {
+        "name": "feeling_good",
+        "ordinal": 1,
+        "type_info": "Bool"
+      }
+    ],
+    "parameters": {
+      "Right": 0
+    },
+    "nullable": [
+      false,
+      false
+    ]
+  },
+  "hash": "ba3cc8703f0d9d2d57ab506d43157d08524c9bded6bbfb888024a13423b3ece0"
+}

@@ -71,8 +71,6 @@
               WebKit
               Security
               Cocoa
-              AppKit
-              AudioUnit
             ]
           ));
         };
@@ -91,6 +89,7 @@
 
             # App deps
             dioxus-cli
+            sqlx-cli
           ];
           shellHook = ''
             echo

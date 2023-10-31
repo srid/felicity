@@ -34,7 +34,8 @@ impl AppState {
         .execute(db_pool)
         .await
         .unwrap();
-        let moods = sqlx::query_as::<_, Mood>(
+        let moods = sqlx::query_as!(
+            Mood,
             "SELECT datetime, feeling_good FROM mood ORDER BY datetime DESC;",
         )
         .fetch_all(db_pool)

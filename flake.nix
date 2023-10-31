@@ -71,6 +71,8 @@
               WebKit
               Security
               Cocoa
+              AppKit
+              AudioUnit
             ]
           ));
         };
@@ -86,9 +88,9 @@
           packages = with pkgs; [
             just
             nixci
-            # Dioxus
-            dioxus-cli
 
+            # App deps
+            dioxus-cli
           ];
           shellHook = ''
             echo

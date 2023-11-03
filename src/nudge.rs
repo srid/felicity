@@ -7,7 +7,7 @@ use tokio::time;
 use crate::state::AppState;
 
 /// How often to register moods
-static MOOD_FREQ: Duration = Duration::from_secs(60 * 10);
+static MOOD_FREQ: Duration = Duration::from_secs(60 * 30);
 
 pub fn setup_nudge(cx: Scope) {
     let window = use_window(cx).clone();

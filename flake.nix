@@ -112,6 +112,7 @@
           packages = with pkgs; [
             just
             nixci
+            git-cliff
 
             # App deps
             dioxus-cli

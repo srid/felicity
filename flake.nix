@@ -113,6 +113,7 @@
             just
             nixci
             git-cliff
+            cargo-dist
 
             # App deps
             dioxus-cli

@@ -5,6 +5,7 @@ edition = "2021"
 build = "build.rs"
 repository = "https://github.com/srid/felicity"
 authors = [ "Sridhar Ratnakumar <srid@srid.ca>" ]
+license = "MIT"
 
 [package.metadata.wix]
 upgrade-guid = "096BFFA2-D9D0-49C4-B744-8981C318E0B6"

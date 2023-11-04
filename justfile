@@ -17,3 +17,6 @@ bundle $CI="true":
     nix run nixpkgs#eza -- -T ./dist/bundle/macos/felicity.app
     rm -rf /Applications/felicity.app/
     mv dist/bundle/macos/felicity.app /Applications/
+
+changelog:
+    git-cliff

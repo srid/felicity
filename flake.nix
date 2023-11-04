@@ -9,6 +9,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
     systems.url = "github:nix-systems/default";
+    pre-commit-hooks-nix.url = "github:cachix/pre-commit-hooks.nix";
 
     rust-overlay.url = "github:oxalica/rust-overlay";
     crane.url = "github:ipetkov/crane";
@@ -30,6 +31,7 @@
         inputs.treefmt-nix.flakeModule
         inputs.process-compose-flake.flakeModule
         inputs.cargo-doc-live.flakeModule
+        inputs.pre-commit-hooks-nix.flakeModule
         (inputs.dioxus-desktop-template + /nix/flake-module.nix)
       ];
 
@@ -55,6 +57,13 @@
           programs = {
             nixpkgs-fmt.enable = true;
             rustfmt.enable = true;
+          };
+        };
+
+        pre-commit = {
+          check.enable = true;
+          settings.hooks = {
+            nil.enable = true;
           };
         };
 
@@ -95,6 +104,7 @@
           name = "nix-browser";
           inputsFrom = [
             config.treefmt.build.devShell
+            config.pre-commit.devShell
             self'.devShells.felicity
           ];
           packages = with pkgs; [

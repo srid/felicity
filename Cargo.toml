@@ -5,6 +5,10 @@ edition = "2021"
 build = "build.rs"
 repository = "https://github.com/srid/felicity"
 
+[package.metadata.wix]
+upgrade-guid = "096BFFA2-D9D0-49C4-B744-8981C318E0B6"
+path-guid = "EDCF9C0A-CC57-472F-9D0A-44C9542128CD"
+
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
@@ -20,3 +24,21 @@ sqlx = { version = "0.7.2", features = ["sqlite", "runtime-tokio", "chrono"] }
 tokio = "1.32.0"
 tracing = "0.1.37"
 tracing-subscriber = "0.3.17"
+
+# The profile that 'cargo dist' will build with
+[profile.dist]
+inherits = "release"
+lto = "thin"
+
+# Config for 'cargo dist'
+[workspace.metadata.dist]
+# The preferred cargo-dist version to use in CI (Cargo.toml SemVer syntax)
+cargo-dist-version = "0.4.2"
+# CI backends to support
+ci = ["github"]
+# The installers to generate for each app
+installers = ["msi"]
+# Target platforms to build apps for (Rust target-triple syntax)
+targets = ["x86_64-unknown-linux-gnu", "aarch64-apple-darwin", "x86_64-apple-darwin", "x86_64-pc-windows-msvc"]
+# Publish jobs to run in CI
+pr-run-mode = "plan"

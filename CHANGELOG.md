@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## Initial Release (Internal)
+## 0.1.0
 
 - Nothing to note.
 

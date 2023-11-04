@@ -65,6 +65,7 @@
           settings.hooks = {
             treefmt.enable = true;
             nil.enable = true;
+            commitizen.enable = true;
           };
         };
 
